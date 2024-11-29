@@ -25,17 +25,32 @@ OWNER_ID = int(os.environ.get("OWNER_ID", ""))
 #Port
 PORT = os.environ.get("PORT", "8080")
 
+APPROVE_TXT = """
+<b>ʀᴇғᴇʀʀᴇ ʏᴏᴜʀ ʟɪɴᴋ ᴛᴏ ʏᴏᴜʀ ғʀɪᴇɴᴅs, ғᴀᴍɪʟʏ, ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ɢʀᴏᴜᴘ ᴛᴏ ɢᴇᴛ ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ ғᴏʀ 
+
+ʀᴇғᴇʀᴀʟ ʟɪɴᴋ - https://telegram.me/{}?start={}
+
+ɪғ ᴜɴɪǫᴜᴇ ᴜsᴇʀ sᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ ᴡɪᴛʜ ʏᴏᴜʀ ʀᴇғᴇʀᴀʟ ʟɪɴᴋ ᴛʜᴇɴ ʏᴏᴜ ᴡɪʟʟ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ ᴀᴅᴅᴇᴅ ɪɴ ᴘʀᴇᴍɪᴜᴍ ʟɪsᴛ.</b>"""
+
+FORCE_MSG = os.environ.get("FORCE_SUB_MESSAGE", "Hello {first}\n\n<b>You need to join in my Channel/Group to use me\n\nKindly Please join Channel</b>")
+
+# use coma to saperate ids example -1002164273659,-1002269604987
+
+FORCE_SUB_CHANNEL = os.environ.get("FORCE_SUB_CHANNEL", "")
+
+FORCE_SUB_CHANNELS = [
+    int(channel.strip()) for channel in FORCE_SUB_CHANNEL.split(",") if channel.strip()
+]
+
+
 #Database 
 DB_URI = os.environ.get("DATABASE_URL", "")
 DB_NAME = os.environ.get("DATABASE_NAME", "filesharexbot")
 
-#force sub channel id, if you want enable force sub
-FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", "0"))
-JOIN_REQUEST_ENABLE = os.environ.get("JOIN_REQUEST_ENABLED", None)
+JOIN_REQUEST_ENABLE = os.environ.get("JOIN_REQUEST_ENABLED", True)
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
-#start message
 START_PIC = os.environ.get("START_PIC","")
 START_MSG = os.environ.get("START_MESSAGE", "Hello {first}\n\nI can store private files in Specified Channel and other users can access it from special link.")
 try:
@@ -45,10 +60,7 @@ try:
 except ValueError:
         raise Exception("Your Admins list does not contain valid integers.")
 
-#Force sub message 
-FORCE_MSG = os.environ.get("FORCE_SUB_MESSAGE", "Hello {first}\n\n<b>You need to join in my Channel/Group to use me\n\nKindly Please join Channel</b>")
 
-#set your Custom Caption here, Keep None for Disable Custom Caption
 CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", None)
 
 #set True if you want to prevent users from forwarding files from bot
