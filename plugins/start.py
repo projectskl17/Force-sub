@@ -15,6 +15,13 @@ import time
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
+    id = message.from_user.id
+    if not await present_user(id):
+        try:
+            await add_user(id)
+        except Exception as e:
+            print(f"Error adding user {id}: {str(e)}")
+            
     buttons = []
     buttons.append(
                 [
@@ -38,6 +45,7 @@ async def start_command(client: Client, message: Message):
         )
     return
 
+
 #=====================================================================================##
 
 WAIT_MSG = """"<b>Processing ...</b>"""
@@ -48,6 +56,13 @@ REPLY_ERROR = """<code>Use this command as a replay to any telegram message with
 
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
+    id = message.from_user.id
+    if not await present_user(id):
+        try:
+            await add_user(id)
+        except Exception as e:
+            print(f"Error adding user {id}: {str(e)}")
+            
     buttons = []
     
     try:
